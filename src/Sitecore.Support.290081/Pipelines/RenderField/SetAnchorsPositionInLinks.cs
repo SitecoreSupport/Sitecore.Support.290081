@@ -46,7 +46,9 @@
       {
         var lengthOfTextWithoutUrl = indexOfPattern - indexOfUrlClosingQuote + pattern.Length;
         result.Append(text.Substring(indexOfUrlClosingQuote, lengthOfTextWithoutUrl));
-        var lengthOfUrl = text.IndexOf("\"", indexOfPattern + pattern.Length + 1, StringComparison.Ordinal) - indexOfPattern - pattern.Length;
+        #region Fix 290081 bug
+        var lengthOfUrl = text.IndexOf("\"", indexOfPattern + pattern.Length, StringComparison.Ordinal) - indexOfPattern - pattern.Length;
+        #endregion
         string urlFromPattern = text.Substring(indexOfPattern + pattern.Length, lengthOfUrl);
         urlFromPattern = this.MoveAnchor(urlFromPattern);
         result.Append(urlFromPattern);
